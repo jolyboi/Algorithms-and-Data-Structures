@@ -1,25 +1,24 @@
-from bisect import *
+def main():
+    left = 1
+    right = min(x, y) * n
+    while right - left > 1:
+        middle = (left + right) // 2
+        if check(middle):
+            right = middle
+        else:
+            left = middle
+    return right
 
-n = int(input())
-a = []
-s = 0
 
-for _ in range(n):
-    a.append(int(input()))
-a.sort()
+def check(max_time):
+    base_time = min(x, y)
+    condition = n - 1
+    x_produced = (max_time - base_time) // x
+    y_produced = (max_time - base_time) // y
+    if x_produced + y_produced < condition:
+        return False
+    return True
 
-for i in range(n - 1):
-    for j in range(i + 1, n):
-        min_ = abs(a[i] - a[j])
-        max_ = (a[i] + a[j])
-        ri = bisect_right(a, min_)
-        ra = bisect_right(a, max_)
-        while ra > 0 and a[ra - 1] == max_:
-            ra -= 1
-        if ri <= j:
-            ri = j + 1
-        if ra <= j:
-            ra = j + 1
-        s += (ra - ri)
 
-print(s)
+n, x, y = map(int, input().split())
+print(main())
